@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUIPUX Analytics Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <!-- HEADER -->
+        <header>
+            <h1>QUIPUX Analytics Dashboard</h1>
+            <p>Sistema de Gestión y Trazabilidad de Exenciones de Pico y Placa</p>
+        </header>
+
+        <!-- TARJETAS DE MÉTRICAS (Simulando conteos SQL) -->
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h3>Total Solicitudes</h3>
+                <p id="metric-total">0</p>
+            </div>
+            <div class="metric-card">
+                <h3>Aprobadas</h3>
+                <p id="metric-approved" class="text-green">0</p>
+            </div>
+            <div class="metric-card">
+                <h3>En Revisión</h3>
+                <p id="metric-review" class="text-yellow">0</p>
+            </div>
+            <div class="metric-card">
+                <h3>Radicadas</h3>
+                <p id="metric-radicated" class="text-blue">0</p>
+            </div>
+        </div>
+
+        <!-- PANEL DE ACCIONES / QUERIES SIMULADAS -->
+        <div class="control-panel">
+            <h2>Ejecutar Consultas / Reportes</h2>
+            <div class="btn-group">
+                <button class="btn" onclick="renderAllRequests()">Ver Todas las Solicitudes</button>
+                <button class="btn" onclick="renderDetailedJoin()">Reporte Detallado (JOIN)</button>
+                <button class="btn" onclick="renderWorkload()">Carga de Trabajo por Funcionario</button>
+                <button class="btn btn-warning" onclick="checkBusinessRules()">Validar Reglas de Negocio</button>
+            </div>
+        </div>
+
+        <!-- TABLA DINÁMICA DE DATOS -->
+        <div class="table-container">
+            <h2 id="table-title">Listado General</h2>
+            <div class="table-responsive">
+                <table id="data-table">
+                    <thead>
+                        <!-- Las columnas cambian dinámicamente según la consulta -->
+                    </thead>
+                    <tbody>
+                        <!-- Los datos se inyectan desde JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
