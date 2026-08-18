@@ -3,62 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QUIPUX Analytics Dashboard</title>
+    <title>QUIPUX SQL Visual Query & Charts</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <div class="dashboard-container">
-        <!-- HEADER -->
         <header>
-            <h1>QUIPUX Analytics Dashboard</h1>
-            <p>Sistema de Gestión y Trazabilidad de Exenciones de Pico y Placa</p>
+            <h1>QUIPUX SQL Terminal & Analytics</h1>
+            <p>Escribe o selecciona una consulta SQL para ver la tabla de datos y su gráfico correspondiente</p>
         </header>
 
-        <!-- TARJETAS DE MÉTRICAS (Simulando conteos SQL) -->
-        <div class="metrics-grid">
-            <div class="metric-card">
-                <h3>Total Solicitudes</h3>
-                <p id="metric-total">0</p>
+        <!-- CONSOLA DE QUERIES -->
+        <div class="console-box">
+            <h2>Consola de Consultas SQL</h2>
+            <div class="query-shortcuts">
+                <button class="btn-shortcut" onclick="setQuery('SELECT estado_solicitud, COUNT(id_solicitud) FROM solicitud GROUP BY estado_solicitud')">Conteo por Estado</button>
+                <button class="btn-shortcut" onclick="setQuery('SELECT tipo_exencion.nombre_exencion, COUNT(solicitud.id_solicitud) FROM solicitud JOIN tipo_exencion ON solicitud.id_tipo_exencion = tipo_exencion.id_tipo_exencion GROUP BY tipo_exencion.nombre_exencion')">Exenciones más Pedidas</button>
+                <button class="btn-shortcut" onclick="setQuery('SELECT funcionario.nombre_funcionario, COUNT(solicitud.id_solicitud) FROM solicitud JOIN funcionario ON solicitud.id_funcionario_gestor = funcionario.id_funcionario GROUP BY funcionario.nombre_funcionario')">Carga por Funcionario</button>
             </div>
-            <div class="metric-card">
-                <h3>Aprobadas</h3>
-                <p id="metric-approved" class="text-green">0</p>
-            </div>
-            <div class="metric-card">
-                <h3>En Revisión</h3>
-                <p id="metric-review" class="text-yellow">0</p>
-            </div>
-            <div class="metric-card">
-                <h3>Radicadas</h3>
-                <p id="metric-radicated" class="text-blue">0</p>
+            
+            <div class="query-input-wrapper">
+                <textarea id="sql-input" placeholder="Escribe tu consulta SQL aquí... (Ej: SELECT ...)">SELECT estado_solicitud, COUNT(id_solicitud) FROM solicitud GROUP BY estado_solicitud</textarea>
+                <button class="btn-execute" onclick="executeSQLQuery()">Ejecutar Query</button>
             </div>
         </div>
 
-        <!-- PANEL DE ACCIONES / QUERIES SIMULADAS -->
-        <div class="control-panel">
-            <h2>Ejecutar Consultas / Reportes</h2>
-            <div class="btn-group">
-                <button class="btn" onclick="renderAllRequests()">Ver Todas las Solicitudes</button>
-                <button class="btn" onclick="renderDetailedJoin()">Reporte Detallado (JOIN)</button>
-                <button class="btn" onclick="renderWorkload()">Carga de Trabajo por Funcionario</button>
-                <button class="btn btn-warning" onclick="checkBusinessRules()">Validar Reglas de Negocio</button>
+        <!-- RESULTADOS: TABLA Y GRÁFICO DINÁMICO -->
+        <div class="results-grid">
+            <!-- Columna de Datos (Tabla) -->
+            <div class="card-result">
+                <h3>Resultado de la Tabla</h3>
+                <div class="table-responsive">
+                    <table id="dynamic-table">
+                        <thead></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
             </div>
-        </div>
 
-        <!-- TABLA DINÁMICA DE DATOS -->
-        <div class="table-container">
-            <h2 id="table-title">Listado General</h2>
-            <div class="table-responsive">
-                <table id="data-table">
-                    <thead>
-                        <!-- Las columnas cambian dinámicamente según la consulta -->
-                    </thead>
-                    <tbody>
-                        <!-- Los datos se inyectan desde JavaScript -->
-                    </tbody>
-                </table>
+            <!-- Columna de Gráfico Visual -->
+            <div class="card-result">
+                <h3>Representación Gráfica</h3>
+                <div id="chart-container" class="chart-container">
+                    <p class="placeholder-text">Ejecuta una consulta para ver el gráfico</p>
+                </div>
             </div>
         </div>
     </div>
